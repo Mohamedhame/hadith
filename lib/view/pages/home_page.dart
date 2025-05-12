@@ -53,6 +53,12 @@ class HomePage extends StatelessWidget {
                         Navigator.of(context).pushNamed(AppRoutes.showAzkar);
                       },
                     ),
+                    CustomButton(
+                      textButton: "السبحة",
+                      onTap: () {
+                        Navigator.of(context).pushNamed(AppRoutes.counter);
+                      },
+                    ),
                   ],
                 ),
               ),

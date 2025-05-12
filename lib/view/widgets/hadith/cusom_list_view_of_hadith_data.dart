@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hadith/controller/naway_explain_ctrl.dart';
 import 'package:hadith/controller/show_hadith_ctrl.dart';
 import 'package:hadith/controller/theme_controller.dart';
+import 'package:hadith/view/pages/hadith/naway_hadith_explain.dart';
 import 'package:hadith/view/widgets/hadith/body_of_hadith.dart';
 import 'package:hadith/view/widgets/hadith/title_of_hadith.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +35,25 @@ class CusomListViewOfHadithData extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  onTap: model.isNaway ? () {} : null,
+                  onTap:
+                      model.isNaway
+                          ? () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ChangeNotifierProvider(
+                                    create:
+                                        (context) => NawayExplainCtrl(
+                                          title:
+                                              model.hadith[idx]['chapterTitle'],
+                                        ),
+                                    child: NawayHadithExplain(),
+                                  );
+                                },
+                              ),
+                            );
+                          }
+                          : null,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),

@@ -52,4 +52,24 @@ class FetchDataFromJson {
     List dataAll = data;
     return dataAll;
   }
+
+  static Future<Map> loadExplainNawawy(String title) async {
+    Map dataJson = {};
+    final String jsonString = await rootBundle.loadString(
+      'assets/data/nawawy/hadiths.json',
+    );
+    final data = json.decode(jsonString);
+    List dataAll = data['1'];
+    for (var element in dataAll) {
+      if (element['hadith'][1]['chapterTitle'] == title) {
+        dataJson = {
+          "chapterTitle": element['hadith'][1]['chapterTitle'],
+          "body": element['hadith'][1]['body'],
+          "explain": element['hadith'][1]['explain'],
+          "rawy": element['hadith'][1]['rawy'],
+        };
+      }
+    }
+    return dataJson;
+  }
 }

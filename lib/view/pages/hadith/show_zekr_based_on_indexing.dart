@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hadith/controller/show_zekr_based_on_indexing_ctrl.dart';
 import 'package:hadith/controller/theme_controller.dart';
+import 'package:hadith/functions/opacity_to_alph.dart';
+import 'package:hadith/view/widgets/calculate_of_progress.dart';
 import 'package:hadith/view/widgets/custom_app_bar.dart';
 import 'package:hadith/view/widgets/hadith/body_of_hadith.dart';
-import 'package:hadith/view/widgets/hadith/custom_date_widget.dart';
+import 'package:hadith/view/widgets/hadith/custom_date_row_top_page.dart';
 import 'package:hadith/view/widgets/hadith/setting_font_size.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 class ShowZekrBasedOnIndexing extends StatelessWidget {
@@ -65,7 +66,6 @@ class ShowZekrBasedOnIndexing extends StatelessWidget {
                                     ),
                                   ),
                                   //==================
-
                                   // Calculator Of Progress
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -73,7 +73,9 @@ class ShowZekrBasedOnIndexing extends StatelessWidget {
                                     ),
                                     child: DecoratedBox(
                                       decoration: BoxDecoration(
-                                        color: theme.fontColor.withOpacity(0.5),
+                                        color: theme.fontColor.withAlpha(
+                                          opacityToAlpha(0.5),
+                                        ),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Padding(
@@ -83,27 +85,18 @@ class ShowZekrBasedOnIndexing extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Selector<
-                                              ShowZekrBasedOnIndexingCtrl,
-                                              double
-                                            >(
-                                              builder: (context, value, child) {
-                                                return CircularPercentIndicator(
-                                                  radius: 20,
-                                                  percent: value,
-                                                  center: Text(
-                                                    model.press[index]
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      color: theme.fontColor,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
+                                            CulculateOfProgress(
+                                              theme: theme,
+                                              radius: 20,
+                                              centerText:
+                                                  model.press[index].toString(),
                                               selector:
-                                                  (p0, p1) =>
-                                                      p1.perecent[index],
+                                                  (
+                                                    ShowZekrBasedOnIndexingCtrl
+                                                    ctrl,
+                                                  ) => ctrl.perecent[index],
                                             ),
+
                                             Text(
                                               count.toString(),
                                               style: TextStyle(
@@ -127,47 +120,6 @@ class ShowZekrBasedOnIndexing extends StatelessWidget {
                 );
               },
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CustomDataRowTopPage extends StatelessWidget {
-  const CustomDataRowTopPage({
-    super.key,
-    required this.size,
-    required this.theme,
-    required this.model,
-  });
-
-  final Size size;
-  final ThemeController theme;
-  final ShowZekrBasedOnIndexingCtrl model;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        textDirection: TextDirection.rtl,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: size.width * 0.25,
-            child: CustomDateWidget(theme: theme, textDate: model.date ?? ""),
-          ),
-          SizedBox(
-            width: size.width * 0.25,
-            child: CustomDateWidget(
-              theme: theme,
-              textDate: model.weekday[model.currentWeekday ?? 1],
-            ),
-          ),
-          SizedBox(
-            width: size.width * 0.25,
-            child: CustomDateWidget(theme: theme, textDate: "${model.format}"),
           ),
         ],
       ),

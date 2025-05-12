@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hadith/service/web_scraping.dart';
+import 'package:hadith/service/fetch_data_from_json.dart';
 import 'package:hijri/hijri_calendar.dart';
 
 class ShowZekrBasedOnIndexingCtrl extends ChangeNotifier {

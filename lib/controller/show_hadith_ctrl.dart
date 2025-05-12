@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hadith/service/web_scraping.dart';
+import 'package:hadith/service/fetch_data_from_json.dart';
 
 class ShowHadithCtrl extends ChangeNotifier {
   ShowHadithCtrl({required this.bookName}) {
