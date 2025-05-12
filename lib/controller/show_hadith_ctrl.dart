@@ -23,14 +23,14 @@ class ShowHadithCtrl extends ChangeNotifier {
   loadHadithBooks() async {
     isLoading = true;
     isNaway = bookName == "nawawy";
-    hadithBooks = await WebScraping.loadJsonIndex(bookName);
+    hadithBooks = await FetchDataFromJson.loadJsonIndex(bookName);
     isLoading = false;
     notifyListeners();
   }
 
   loadHadith() async {
     textLoading = true;
-    hadith = await WebScraping.fetchHadith(bookName, currentIndex);
+    hadith = await FetchDataFromJson.fetchHadith(bookName, currentIndex);
     textLoading = false;
     notifyListeners();
   }

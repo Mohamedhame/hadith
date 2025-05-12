@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hadith/controller/theme_controller.dart';
-import 'package:hadith/service/web_scraping.dart';
 import 'package:hadith/utilities/routes.dart';
 import 'package:hadith/view/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +50,7 @@ class HomePage extends StatelessWidget {
                     CustomButton(
                       textButton: "حصن المسلم",
                       onTap: () async {
-                        WebScraping.fetchHadith("muslim", 1);
+                        Navigator.of(context).pushNamed(AppRoutes.showAzkar);
                       },
                     ),
                   ],

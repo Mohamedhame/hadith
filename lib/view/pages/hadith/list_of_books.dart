@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hadith/controller/show_hadith_ctrl.dart';
 import 'package:hadith/controller/theme_controller.dart';
-import 'package:hadith/view/pages/show_hadith.dart';
+import 'package:hadith/view/pages/hadith/show_hadith.dart';
 import 'package:hadith/view/widgets/custom_button.dart';
 import 'package:hadith/view/widgets/stylish_card.dart';
 import 'package:provider/provider.dart';

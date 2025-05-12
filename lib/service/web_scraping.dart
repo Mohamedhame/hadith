@@ -1,38 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:hadith/functions/clean_text.dart';
-import 'package:http/http.dart' as http;
-import 'package:hadith/constant/string.dart';
 
-class WebScraping {
-  static Future<List> fetchTextOfHaith(String book, int chapter) async {
-    final url = Uri.parse(
-      'https://hadithapi.com/api/hadiths/?apiKey=$apiKey&book=$book&chapter=$chapter',
-    );
-    List hadith = [];
-    try {
-      final response = await http.get(url);
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-
-        for (var element in data['hadiths']['data']) {
-          hadith.add({
-            "title": element['headingArabic'],
-            "hadith": element['hadithArabic'],
-          });
-        }
-      } else {
-        print('خطأ في الاستجابة: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('حدث خطأ: $e');
-    }
-    return hadith;
-  }
-
-  //====================================
-
+class FetchDataFromJson {
+  // Get index of books
   static Future<List> loadJsonIndex(String book) async {
     List titleOfBooks = [];
     if (book != "nawawy") {
@@ -50,6 +21,7 @@ class WebScraping {
     return titleOfBooks;
   }
 
+  // Get Nuse (Body) of Hadith
   static Future<List> fetchHadith(String book, int index) async {
     List hadith = [];
     final String jsonString = await rootBundle.loadString(
@@ -69,5 +41,15 @@ class WebScraping {
     }
 
     return hadith;
+  }
+
+  // Get Ahadith from hisn elmouslim
+  static Future<List> loadJsonAzkar() async {
+    final String jsonString = await rootBundle.loadString(
+      'assets/data/adhkar.json',
+    );
+    final data = json.decode(jsonString);
+    List dataAll = data;
+    return dataAll;
   }
 }
